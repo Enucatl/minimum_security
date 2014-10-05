@@ -19,6 +19,7 @@ class key_downloader {
   file { "/home/deploy/.ssh/authorized_keys":
     ensure => present,
     source => "/tmp/enucatl.keys",
+    mode => 600,
     require => Exec["exec_key_download"]
   }
 }

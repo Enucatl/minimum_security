@@ -8,16 +8,23 @@ namespace :'puppet-bootstrap' do
 
   desc "install the ubuntu packages"
   task :'install-packages' do
-    packages = %w(puppet librarian-puppet)
+    packages = %w(puppet ruby-dev make)
     on roles(:root) do
       packages.each do |p|
-        execute "dpkg -s #{p} &> /dev/null; if [ $? -ne 0 ]; then apt-get install #{p}; fi"
+        execute "dpkg -s #{p} &> /dev/null; if [ $? -ne 0 ]; then apt-get -y install #{p}; fi"
       end
     end
   end
 
+  desc "install puppet librarian"
+  task :'install-librarian' => :'install-packages' do
+    on roles(:root) do
+      execute "if [ -z $(which librarian-puppet) ]; then gem install librarian-puppet; fi"
+    end
+  end
+
   desc "Package and upload the configs"
-  task :'upload-config' => ["minimum-security.tar.gz", :'install-packages'] do |t|
+  task :'upload-config' => ["minimum-security.tar.gz", :'install-librarian'] do |t|
     tarball = t.prerequisites.first
     on roles(:root) do
       execute :mkdir, '-p', tmp_dir

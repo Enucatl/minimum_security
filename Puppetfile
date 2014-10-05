@@ -1,4 +1,7 @@
-forge "https://forge.puppetlabs.com"
+#!/usr/bin/env ruby
+#^syntax detection
+
+forge "https://forgeapi.puppetlabs.com"
 
 mod 'puppetlabs-apt'
 mod 'attachmentgenie-ufw'
