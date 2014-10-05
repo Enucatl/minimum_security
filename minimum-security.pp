@@ -13,14 +13,23 @@ user { 'deploy':
 class key_downloader {
   exec { "/usr/bin/env wget --timestamping https://github.com/enucatl.keys":
     alias => "exec_key_download",
-    cwd => "/tmp"
+    cwd => "/tmp",
+  }
+
+  file { "/home/deploy/.ssh":
+    ensure => "directory",
+    group => "deploy",
+    owner => "deploy",
+    mode => 700,
+    require => File["authorized_keys_file"],
   }
 
   file { "/home/deploy/.ssh/authorized_keys":
+    alias => "authorized_keys_file",
     ensure => present,
     source => "/tmp/enucatl.keys",
     mode => 600,
-    require => Exec["exec_key_download"]
+    require => Exec["exec_key_download"],
   }
 }
 
@@ -36,11 +45,11 @@ class { 'sudo':
   confs_hash => {
     'root' => {
       ensure => present,
-      content => 'root ALL=(ALL) NOPASSWD: ALL'
+      content => 'root ALL=(ALL) NOPASSWD: ALL',
     },
     'deploy' => {
       ensure => present,
-      content => 'deploy ALL=(ALL:ALL) ALL'
+      content => 'deploy ALL=(ALL:ALL) ALL',
     },
   },
 }
@@ -52,11 +61,11 @@ ufw::allow { "allow-ssh-from-all":
 }
 
 ufw::allow { "allow-http":
-  port => 80
+  port => 80,
 }
 
 ufw::allow { "allow-https":
-  port => 443
+  port => 443,
 }
 
 class { 'ssh::server':

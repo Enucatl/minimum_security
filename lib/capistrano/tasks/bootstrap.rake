@@ -48,7 +48,7 @@ namespace :'puppet-bootstrap' do
   task :'puppet-apply' => :"puppet-librarian" do
     on roles(:root) do
       within tmp_dir do
-        execute :puppet, "apply", "minimum-security.pp"
+        execute :puppet, "apply", "--modulepath=./modules", "minimum-security.pp"
       end
     end
   end
