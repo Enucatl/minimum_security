@@ -21,7 +21,7 @@ class key_downloader {
     group => "deploy",
     owner => "deploy",
     mode => 700,
-    require => File["authorized_keys_file"],
+    before => File["authorized_keys_file"],
   }
 
   file { "/home/deploy/.ssh/authorized_keys":
