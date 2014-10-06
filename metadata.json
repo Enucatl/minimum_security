@@ -7,7 +7,7 @@
   "source": "https://github.com/enucatl/minimum_security",
   "project_page": "(https://github.com/enucatl/minimum_security)",
   "issues_url": "https://github.com/Enucatl/minimum_security/issues",
-  "tags": ["security", "stuff"],
+  "tags": ["security"],
   "operatingsystem_support": [
     {
     "operatingsystem":"Ubuntu",
