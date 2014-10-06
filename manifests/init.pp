@@ -1,5 +1,5 @@
 class minimum_security (
-  $user="deploy",
+  $user,
   $password,
   $ssh_key_location,
   $ufw_allow_options={
@@ -18,8 +18,8 @@ class minimum_security (
 
   file { "/home/$user/.ssh":
     ensure => "directory",
-    group => "deploy",
-    owner => "deploy",
+    group => $user,
+    owner => $user,
     mode => 700,
     before => Wget::Fetch["authorized_keys_download"],
   }
@@ -59,9 +59,9 @@ class minimum_security (
         ensure => present,
         content => 'root ALL=(ALL) NOPASSWD: ALL',
       },
-      'deploy' => {
+      "${user}" => {
         ensure => present,
-        content => 'deploy ALL=(ALL:ALL) ALL',
+        content => "${user} ALL=(ALL:ALL) ALL",
       },
     },
   }
