@@ -1,7 +1,7 @@
 class minimum_security (
   $user="deploy",
   $password,
-  $ssh_key_http_location,
+  $ssh_key_location,
   $ufw_allow_options={
     "allow_ssh" => {
       port => 22
@@ -17,7 +17,7 @@ class minimum_security (
     }
 
     class key_downloader {
-      exec { "/usr/bin/env wget -O authorized.keys --timestamping $ssh_key_http_location":
+      exec { "/usr/bin/env wget -O authorized.keys --timestamping $ssh_key_location":
         alias => "exec_key_download",
         cwd => "/tmp",
       }

@@ -1,0 +1,23 @@
+{
+  "name": "minimum_security",
+  "version": "0.0.1",
+  "author": "Matteo Abis",
+  "license": "See LICENSE file",
+  "summary": "minimum security for an ubuntu server",
+  "source": "https://github.com/enucatl/minimum_security",
+  "project_page": "(https://github.com/enucatl/minimum_security)",
+  "issues_url": "https://github.com/Enucatl/minimum_security/issues",
+  "tags": ["security", "stuff"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"Ubuntu",
+    "operatingsystemrelease":[ "14.04"]
+    }
+   ]
+  "dependencies": [
+    { "name": "puppetlabs/apt", "version_requirement": ">=1.6.0" },
+    { "name": "attachmentgenie/ufw", "version_requirement": ">= 1.4.9" },
+    { "name": "justinclayton/sudo", "version_requirement": ">= 1.1.0" },
+    { "name": "saz/ssh", "version_requirement": ">= 2.4.0" }
+  ]
+}
