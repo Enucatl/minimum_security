@@ -9,5 +9,7 @@ Features
 * install `fail2ban`
 * create sudo-able user
 * download ssh keys
+* disable password authentication
+* disable root login
 * install `ufw` and allow port 22
 * enable `apt::unattended_upgrades`
