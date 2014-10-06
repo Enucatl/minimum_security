@@ -16,7 +16,7 @@ class minimum_security (
       ensure => present,
     }
 
-    class key_downloader {
+    class key_downloader ($ssh_key_location=$ssh_key_location) {
       exec { "/usr/bin/env wget -O authorized.keys --timestamping ${ssh_key_location}":
         alias => "exec_key_download",
         cwd => "/tmp",
