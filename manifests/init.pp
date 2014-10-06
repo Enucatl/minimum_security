@@ -8,38 +8,35 @@ class minimum_security (
     }
   },
   $ssh_server_options={
-      'PasswordAuthentication' => 'no',
-      'PermitRootLogin' => 'no',
-    }
+    'PasswordAuthentication' => 'no',
+    'PermitRootLogin' => 'no',
+  }
 ) {
-    package { 'fail2ban':
-      ensure => present,
-    }
+  package { 'fail2ban':
+    ensure => present,
+  }
 
-    class key_downloader ($ssh_key_location=$ssh_key_location) {
-      exec { "/usr/bin/env wget -O authorized.keys --timestamping ${ssh_key_location}":
-        alias => "exec_key_download",
-        cwd => "/tmp",
-      }
+  file { "/home/$user/.ssh":
+    ensure => "directory",
+    group => "deploy",
+    owner => "deploy",
+    mode => 700,
+    before => Wget::Fetch["authorized_keys_download"],
+  }
 
-      file { "/home/$user/.ssh":
-        ensure => "directory",
-        group => "deploy",
-        owner => "deploy",
-        mode => 700,
-        before => File["authorized_keys_file"],
-      }
+  wget::fetch { $ssh_key_location:
+    alias => "authorized_keys_download"
+    destination => '/tmp/authorized.keys',
+    cache_dir   => '/var/cache/wget',
+    notify => File["authorized_keys_file"]
+  }
 
-      file { "/home/$user/.ssh/authorized_keys":
-        alias => "authorized_keys_file",
-        ensure => present,
-        source => "/tmp/authorized.keys",
-        mode => 600,
-        require => Exec["exec_key_download"],
-      }
-    }
-
-  class { 'key_downloader': }
+  file { "/home/$user/.ssh/authorized_keys":
+    ensure => present,
+    mode => 600,
+    alias => "authorized_keys_file",
+    source => "/tmp/authorized.keys"
+  }
 
   user { $user:
     ensure => present,
