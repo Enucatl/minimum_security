@@ -43,7 +43,8 @@ class minimum_security (
     password => $password,
     shell => '/bin/bash',
     managehome => true,
-    before => Class['ssh::server', 'sudo', 'key_downloader'],
+    before => Class['ssh::server', 'sudo'],
+    notify => File['/home/${user}/.ssh'],
   }
 
   class { 'sudo':
