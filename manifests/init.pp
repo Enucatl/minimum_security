@@ -25,10 +25,10 @@ class minimum_security (
   }
 
   wget::fetch { $ssh_key_location:
-    alias => "authorized_keys_download"
+    alias => "authorized_keys_download",
     destination => '/tmp/authorized.keys',
     cache_dir   => '/var/cache/wget',
-    notify => File["authorized_keys_file"]
+    notify => File["authorized_keys_file"],
   }
 
   file { "/home/$user/.ssh/authorized_keys":
