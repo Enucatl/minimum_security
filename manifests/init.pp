@@ -9,7 +9,6 @@ class minimum_security (
   },
   $ssh_server_options={
     'PasswordAuthentication' => 'no',
-    'PermitRootLogin' => 'no',
   }
 ) {
   package { 'fail2ban':
