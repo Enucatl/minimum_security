@@ -73,6 +73,4 @@ class minimum_security (
   class { 'ssh::server':
     options => $ssh_server_options,
   }
-
-  include apt::unattended_upgrades
 }
