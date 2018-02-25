@@ -19,7 +19,7 @@ class minimum_security (
     ensure => "directory",
     group => $user,
     owner => $user,
-    mode => 700,
+    mode => "0600",
     before => Wget::Fetch["authorized_keys_download"],
   }
 
