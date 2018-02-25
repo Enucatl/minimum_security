@@ -32,7 +32,7 @@ class minimum_security (
 
   file { "/home/$user/.ssh/authorized_keys":
     ensure => present,
-    mode => 600,
+    mode => "0600",
     alias => "authorized_keys_file",
     source => "/tmp/authorized.keys"
   }
