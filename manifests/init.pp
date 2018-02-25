@@ -33,6 +33,8 @@ class minimum_security (
   file { "/home/$user/.ssh/authorized_keys":
     ensure => present,
     mode => "0600",
+    group => $user,
+    owner => $user,
     alias => "authorized_keys_file",
     source => "/tmp/authorized.keys"
   }
